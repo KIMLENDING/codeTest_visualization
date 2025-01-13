@@ -1,9 +1,12 @@
-import ArrayComparisonVisualizer from "@/components/component/array-comparison-visualization";
+import StationVisualizer from "@/components/component/station-visualization";
+
+
 
 export default function Home() {
   return (
     <div>
-      <ArrayComparisonVisualizer />
+      <StationVisualizer />
+
 
     </div>
   );
