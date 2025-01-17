@@ -1,7 +1,8 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
-import { Wifi, Play, Pause, RotateCcw } from 'lucide-react';
+import { Wifi, Play, Pause, RotateCcw, SquareArrowOutUpRight } from 'lucide-react';
+import Link from 'next/link';
 
 interface StationVisualizerProps {
   n?: number;
@@ -138,8 +139,14 @@ const StationVisualizer = ({
   return (
     <Card className="w-full max-w-4xl">
       <CardHeader>
+
         <CardTitle className="flex justify-between items-center">
-          <span>기지국 커버리지 시각화</span>
+          <div className='flex flex-row items-center gap-2'>
+            <span>기지국 설치 시각화</span>
+            <Link href={'https://school.programmers.co.kr/learn/courses/30/lessons/12979'}>
+              <SquareArrowOutUpRight />
+            </Link>
+          </div>
           <div className="flex gap-2">
             <button
               onClick={togglePlay}

@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import Link from 'next/link';
+import { SquareArrowOutUpRight } from 'lucide-react';
 
 const NetworkVisualization = () => {
   const [networkState, setNetworkState] = useState({
@@ -71,10 +73,15 @@ const NetworkVisualization = () => {
   };
 
   return (
-    <div className="space-y-4">
+    <section className="space-y-6 w-full max-w-4xl">
       <Card>
         <CardHeader>
-          <CardTitle>네트워크 연결 상태 시각화</CardTitle>
+          <div className='flex flex-row items-center gap-2'>
+            <CardTitle>네트워크 시각화</CardTitle>
+            <Link href={'https://school.programmers.co.kr/learn/courses/30/lessons/43162'}>
+              <SquareArrowOutUpRight />
+            </Link>
+          </div>
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-2 gap-4">
@@ -110,8 +117,8 @@ const NetworkVisualization = () => {
                 <p>현재 확인 중인 컴퓨터: {networkState.currentNode !== null ? `${networkState.currentNode}번` : '없음'}</p>
                 <button
                   className={`px-4 py-2 rounded ${networkState.isRunning
-                      ? 'bg-gray-300 cursor-not-allowed'
-                      : 'bg-blue-500 text-white hover:bg-blue-600'
+                    ? 'bg-gray-300 cursor-not-allowed'
+                    : 'bg-blue-500 text-white hover:bg-blue-600'
                     }`}
                   onClick={startVisualization}
                   disabled={networkState.isRunning}
@@ -134,7 +141,7 @@ const NetworkVisualization = () => {
           </div>
         </CardContent>
       </Card>
-    </div>
+    </section>
   );
 };
 

@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Play, Pause } from 'lucide-react';
+import { Play, Pause, SquareArrowOutUpRight } from 'lucide-react';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../ui/card';
+import Link from 'next/link';
 
 const TrianglePathVisualization = () => {
   const [currentStep, setCurrentStep] = useState(0);
@@ -111,64 +113,70 @@ const TrianglePathVisualization = () => {
   };
 
   return (
-    <div className="p-4 max-w-2xl mx-auto">
-      <div className="mb-4 text-center">
-        <h2 className="text-xl font-bold mb-2">삼각형 최대 경로 합 알고리즘 시각화</h2>
-        <p className="text-sm text-gray-600 mb-4">{steps[currentStep]?.description}</p>
-      </div>
+    <Card className="w-full max-w-4xl">
+      <CardHeader >
+        <div className='flex flex-row items-center gap-2'>
+          <CardTitle >정수 삼각형 시각화</CardTitle>
+          <Link href={'https://school.programmers.co.kr/learn/courses/30/lessons/43105'}>
+            <SquareArrowOutUpRight />
+          </Link>
+        </div>
+        <CardDescription className="text-sm text-gray-600 mb-4">{steps[currentStep]?.description}</CardDescription>
+      </CardHeader>
+      <CardContent>
+        <div className="flex flex-col items-center space-y-1 mb-8">
+          {steps[currentStep]?.triangle.map((row, i) => (
+            <div
+              key={i}
+              className="flex justify-center"
+              style={{
+                paddingLeft: `${(steps[currentStep].triangle.length - row.length) * 2}rem`,
+                paddingRight: `${(steps[currentStep].triangle.length - row.length) * 2}rem`
+              }}
+            >
+              {row.map((num, j) => (
+                <div
+                  key={`${i}-${j}`}
+                  className={`w-12 h-12 flex items-center justify-center m-1 rounded-full
+                ${getCellStyle(i, j, steps[currentStep])}
+                transition-colors duration-300`}
+                >
+                  {num}
+                </div>
+              ))}
+            </div>
+          ))}
+        </div>
 
-      <div className="flex flex-col items-center space-y-4 mb-8">
-        {steps[currentStep]?.triangle.map((row, i) => (
-          <div
-            key={i}
-            className="flex justify-center"
-            style={{
-              paddingLeft: `${(steps[currentStep].triangle.length - row.length) * 2}rem`,
-              paddingRight: `${(steps[currentStep].triangle.length - row.length) * 2}rem`
-            }}
+        <div className="flex justify-center gap-4 items-center">
+          <button
+            onClick={handlePrev}
+            disabled={currentStep === 0}
+            className="px-4 py-2 bg-gray-200 rounded disabled:opacity-50"
           >
-            {row.map((num, j) => (
-              <div
-                key={`${i}-${j}`}
-                className={`w-12 h-12 flex items-center justify-center m-1 rounded-full
-                  ${getCellStyle(i, j, steps[currentStep])}
-                  transition-colors duration-300`}
-              >
-                {num}
-              </div>
-            ))}
-          </div>
-        ))}
-      </div>
+            이전
+          </button>
+          <button
+            onClick={togglePlay}
+            className="px-4 py-2 bg-green-500 text-white rounded flex items-center gap-2"
+          >
+            {isPlaying ? <Pause size={16} /> : <Play size={16} />}
+            {isPlaying ? '일시정지' : '재생'}
+          </button>
+          <button
+            onClick={handleNext}
+            disabled={currentStep === steps.length - 1}
+            className="px-4 py-2 bg-blue-500 text-white rounded disabled:opacity-50"
+          >
+            다음
+          </button>
+        </div>
 
-      <div className="flex justify-center gap-4 items-center">
-        <button
-          onClick={handlePrev}
-          disabled={currentStep === 0}
-          className="px-4 py-2 bg-gray-200 rounded disabled:opacity-50"
-        >
-          이전
-        </button>
-        <button
-          onClick={togglePlay}
-          className="px-4 py-2 bg-green-500 text-white rounded flex items-center gap-2"
-        >
-          {isPlaying ? <Pause size={16} /> : <Play size={16} />}
-          {isPlaying ? '일시정지' : '재생'}
-        </button>
-        <button
-          onClick={handleNext}
-          disabled={currentStep === steps.length - 1}
-          className="px-4 py-2 bg-blue-500 text-white rounded disabled:opacity-50"
-        >
-          다음
-        </button>
-      </div>
-
-      <div className="mt-4 text-center text-sm text-gray-600">
-        단계: {currentStep + 1} / {steps.length}
-      </div>
-    </div>
+        <div className="mt-4 text-center text-sm text-gray-600">
+          단계: {currentStep + 1} / {steps.length}
+        </div>
+      </CardContent>
+    </Card>
   );
 };
 

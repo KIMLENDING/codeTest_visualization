@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Camera } from 'lucide-react';
+import { Camera, SquareArrowOutUpRight } from 'lucide-react';
+import Link from 'next/link';
 
 interface Route {
   start: number;
@@ -21,11 +22,11 @@ const RouteVisualization = () => {
   const [newStart, setNewStart] = useState<string>("");
   const [newEnd, setNewEnd] = useState<string>("");
   const [isAnimating, setIsAnimating] = useState<boolean>(false);
-  
+
   const minX = Math.min(...routes.map(r => r.start)) - 2;
   const maxX = Math.max(...routes.map(r => r.end)) + 2;
   const width = maxX - minX;
-  
+
   const getXPosition = (x: number): number => {
     return ((x - minX) / width) * 100;
   };
@@ -33,12 +34,12 @@ const RouteVisualization = () => {
   const addNewRoute = () => {
     const start = parseInt(newStart);
     const end = parseInt(newEnd);
-    
+
     if (isNaN(start) || isNaN(end)) {
       alert("유효한 숫자를 입력해주세요.");
       return;
     }
-    
+
     if (start >= end) {
       alert("시작 지점은 종료 지점보다 작아야 합니다.");
       return;
@@ -67,7 +68,7 @@ const RouteVisualization = () => {
     if (step < routes.length) {
       const currentRoute = routes[step];
       const lastCamera = cameras[cameras.length - 1] || -30001;
-      
+
       if (lastCamera < currentRoute.start) {
         setCameras([...cameras, currentRoute.end]);
       }
@@ -88,8 +89,14 @@ const RouteVisualization = () => {
   return (
     <Card className="w-full max-w-4xl">
       <CardHeader>
-        <CardTitle>경로 카메라 배치 시각화</CardTitle>
+        <div className='flex flex-row items-center gap-2'>
+          <CardTitle>단속카메라 시각화</CardTitle>
+          <Link href={'https://school.programmers.co.kr/learn/courses/30/lessons/42884'}>
+            <SquareArrowOutUpRight />
+          </Link>
+        </div>
       </CardHeader>
+
       <CardContent>
         <div className="space-y-6">
           <div className="flex gap-4 items-center">
@@ -117,9 +124,8 @@ const RouteVisualization = () => {
               {routes.map((route, idx) => (
                 <div
                   key={idx}
-                  className={`absolute h-8 rounded-full transition-all duration-500 ${
-                    idx < step ? 'bg-blue-200' : 'bg-gray-200'
-                  }`}
+                  className={`absolute h-8 rounded-full transition-all duration-500 ${idx < step ? 'bg-blue-200' : 'bg-gray-200'
+                    }`}
                   style={{
                     left: `${getXPosition(route.start)}%`,
                     width: `${getXPosition(route.end) - getXPosition(route.start)}%`,
@@ -127,7 +133,7 @@ const RouteVisualization = () => {
                   }}
                 />
               ))}
-              
+
               {cameras.map((pos, idx) => (
                 <div
                   key={`camera-${idx}`}
@@ -142,28 +148,28 @@ const RouteVisualization = () => {
               ))}
             </div>
           </div>
-          
+
           <div className="flex gap-4 justify-center">
-            <Button 
+            <Button
               onClick={toggleAnimation}
               disabled={step >= routes.length}
             >
               {isAnimating ? "일시정지" : "자동 재생"}
             </Button>
-            <Button 
+            <Button
               onClick={nextStep}
               disabled={step >= routes.length || isAnimating}
             >
               다음 단계
             </Button>
-            <Button 
+            <Button
               onClick={reset}
               variant="outline"
             >
               초기화
             </Button>
           </div>
-          
+
           <div className="text-sm text-gray-600">
             진행 단계: {step}/{routes.length} | 설치된 카메라: {cameras.length}개
           </div>

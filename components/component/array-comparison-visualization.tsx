@@ -2,7 +2,8 @@
 import React, { useState, useEffect } from 'react';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { ChevronRight, DicesIcon, RotateCcw } from 'lucide-react';
+import { ChevronRight, DicesIcon, RotateCcw, SquareArrowOutUpRight } from 'lucide-react';
+import Link from 'next/link';
 
 const ArrayComparisonVisualizer = () => {
   const [A, setA] = useState([7, 5, 4, 3, 3, 2, 2]);
@@ -70,9 +71,15 @@ const ArrayComparisonVisualizer = () => {
   };
 
   return (
-    <Card className="w-full max-w-2xl">
+    <Card className="w-full max-w-4xl">
       <CardHeader>
-        <CardTitle>배열 비교 게임 시각화</CardTitle>
+        <div className='flex flex-row items-center gap-2'>
+          <CardTitle>숫자 게임 시각화</CardTitle>
+          <Link href={'https://school.programmers.co.kr/learn/courses/30/lessons/12987'}>
+            <SquareArrowOutUpRight />
+          </Link>
+        </div>
+
       </CardHeader>
       <CardContent>
 

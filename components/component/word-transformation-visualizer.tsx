@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, RotateCw, MoveRight } from 'lucide-react';
+import { ArrowRight, RotateCw, MoveRight, SquareArrowOutUpRight } from 'lucide-react';
+import Link from 'next/link';
 
 interface WordTransformationProps {
   beginWord?: string;
@@ -9,11 +10,11 @@ interface WordTransformationProps {
   wordList?: string[];
 }
 
-const WordTransformationVisualizer: React.FC<WordTransformationProps> = ({
+const WordTransformationVisualizer = ({
   beginWord = "hit",
   targetWord = "cog",
   wordList = ["hot", "dot", "dog", "lot", "log", "cog"]
-}) => {
+}: WordTransformationProps) => {
   const [currentPath, setCurrentPath] = useState<string[]>([]);
   const [isAnimating, setIsAnimating] = useState<boolean>(false);
   const [step, setStep] = useState<number>(0);
@@ -90,9 +91,14 @@ const WordTransformationVisualizer: React.FC<WordTransformationProps> = ({
   };
 
   return (
-    <Card className="w-full max-w-3xl">
+    <Card className="w-full max-w-4xl">
       <CardHeader>
-        <CardTitle>단어 변환 시각화</CardTitle>
+        <div className='flex flex-row items-center gap-2'>
+          <CardTitle>단어 변환 시각화</CardTitle>
+          <Link href={'https://school.programmers.co.kr/learn/courses/30/lessons/43163'}>
+            <SquareArrowOutUpRight />
+          </Link>
+        </div>
       </CardHeader>
       <CardContent>
         <div className="space-y-6">

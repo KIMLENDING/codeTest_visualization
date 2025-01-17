@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import Link from 'next/link';
+import { SquareArrowOutUpRight } from 'lucide-react';
 
 const PathVisualizer = () => {
   const [step, setStep] = useState(0);
@@ -43,9 +45,16 @@ const PathVisualizer = () => {
   }, []);
 
   return (
-    <Card className="w-full max-w-xl">
+    <Card className="w-full max-w-4xl">
       <CardHeader>
-        <CardTitle>경로 찾기 시각화 (단계 {step + 1}/{grid.length})</CardTitle>
+
+        <div className='flex flex-row items-center gap-2'>
+
+          <CardTitle>등굣길 경로 찾기 시각화 (단계 {step + 1}/{grid.length})</CardTitle>
+          <Link href={'https://school.programmers.co.kr/learn/courses/30/lessons/42898'}>
+            <SquareArrowOutUpRight />
+          </Link>
+        </div>
       </CardHeader>
       <CardContent>
         <div className="space-y-4">

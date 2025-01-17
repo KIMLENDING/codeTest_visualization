@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Play, Pause, SkipBack, SkipForward } from 'lucide-react';
+import { Play, Pause, SkipBack, SkipForward, SquareArrowOutUpRight } from 'lucide-react';
+import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
+import Link from 'next/link';
 
 const QueueVisualization = () => {
   const [currentStep, setCurrentStep] = useState(0);
@@ -71,79 +73,93 @@ const QueueVisualization = () => {
   const [op, num] = operations[currentStep].split(" ");
 
   return (
-    <div className="p-6 max-w-4xl mx-auto space-y-6">
-      <div className="bg-white rounded-lg shadow-lg p-6">
-        <h2 className="text-2xl font-bold mb-4">우선순위 큐 시각화</h2>
-
-        {/* Control Panel */}
-        <div className="flex items-center justify-center space-x-4 mb-6">
-          <button
-            onClick={handleStepBack}
-            className="p-2 rounded hover:bg-gray-100"
-            disabled={currentStep === 0}
-          >
-            <SkipBack className="w-6 h-6" />
-          </button>
-
-          <button
-            onClick={handlePlayPause}
-            className="p-2 rounded hover:bg-gray-100"
-          >
-            {isPlaying ? <Pause className="w-6 h-6" /> : <Play className="w-6 h-6" />}
-          </button>
-
-          <button
-            onClick={handleStepForward}
-            className="p-2 rounded hover:bg-gray-100"
-            disabled={currentStep === operations.length - 1}
-          >
-            <SkipForward className="w-6 h-6" />
-          </button>
-
-          <button
-            onClick={handleReset}
-            className="px-4 py-2 bg-gray-100 rounded hover:bg-gray-200"
-          >
-            리셋
-          </button>
-        </div>
-
-        {/* Current Operation */}
-        <div className="mb-6 text-center">
-          <div className="text-lg font-medium">
-            현재 연산: <span className="font-bold">{operations[currentStep]}</span>
+    <section className="space-y-6 w-full max-w-4xl">
+      <Card>
+        <CardHeader >
+          <div className='flex flex-row items-center gap-2'>
+            <CardTitle >이중우선순위큐 시각화</CardTitle>
+            <Link href={'https://school.programmers.co.kr/learn/courses/30/lessons/42628'}>
+              <SquareArrowOutUpRight />
+            </Link>
           </div>
-          <div className="text-sm text-gray-600">
-            {op === 'I' ?
-              `${num} 삽입` :
-              `${num === '1' ? '최대값' : '최소값'} 삭제`
-            }
-          </div>
-        </div>
+        </CardHeader>
 
-        {/* Array Visualization */}
-        <div className="flex flex-wrap gap-2 justify-center mb-6">
-          {currentArray.map((value, index) => (
-            <div
-              key={index}
-              className={`
-                px-4 py-2 rounded-lg text-white font-medium
-                ${value === Math.max(...currentArray) ? 'bg-blue-600' :
-                  value === Math.min(...currentArray) ? 'bg-red-600' :
-                    'bg-gray-500'}
-              `}
-            >
-              {value}
+
+        <CardContent>
+          <div className="flex items-center justify-center space-x-4 mb-6">{operations.map((item, i) => (
+            <div key={i} className={` px-4 py-2 rounded-lg text-white font-medium ${i <= currentStep ? 'bg-blue-500' : 'bg-zinc-400'}`}>
+              {item}
             </div>
-          ))}
-        </div>
+          ))}</div>
+          <div className="flex items-center justify-center space-x-4 mb-6">
+            <button
+              onClick={handleStepBack}
+              className="p-2 rounded hover:bg-gray-100"
+              disabled={currentStep === 0}
+            >
+              <SkipBack className="w-6 h-6" />
+            </button>
 
-        {/* Progress */}
-        <div className="text-sm text-gray-600 text-center">
-          단계: {currentStep + 1} / {operations.length}
-        </div>
-      </div>
-    </div>
+            <button
+              onClick={handlePlayPause}
+              className="p-2 rounded hover:bg-gray-100"
+            >
+              {isPlaying ? <Pause className="w-6 h-6" /> : <Play className="w-6 h-6" />}
+            </button>
+
+            <button
+              onClick={handleStepForward}
+              className="p-2 rounded hover:bg-gray-100"
+              disabled={currentStep === operations.length - 1}
+            >
+              <SkipForward className="w-6 h-6" />
+            </button>
+
+            <button
+              onClick={handleReset}
+              className="px-4 py-2 bg-gray-100 rounded hover:bg-gray-200"
+            >
+              리셋
+            </button>
+          </div>
+
+          {/* 현재 연산 */}
+          <div className="mb-6 text-center">
+            <div className="text-lg font-medium">
+              현재 연산: <span className="font-bold">{operations[currentStep]}</span>
+            </div>
+            <div className="text-sm text-gray-600">
+              {op === 'I' ?
+                `${num} 삽입` :
+                `${num === '1' ? '최대값' : '최소값'} 삭제`
+              }
+            </div>
+          </div>
+
+
+          <div className="flex flex-wrap gap-2 justify-center mb-6">
+            {currentArray.map((value, index) => (
+              <div
+                key={index}
+                className={`
+              px-4 py-2 rounded-lg text-white font-medium
+              ${value === Math.max(...currentArray) ? 'bg-blue-600' :
+                    value === Math.min(...currentArray) ? 'bg-red-600' :
+                      'bg-gray-500'}
+                `}
+              >
+                {value}
+              </div>
+            ))}
+          </div>
+
+
+          <div className="text-sm text-gray-600 text-center">
+            단계: {currentStep + 1} / {operations.length}
+          </div>
+        </CardContent>
+      </Card>
+    </section>
   );
 };
 

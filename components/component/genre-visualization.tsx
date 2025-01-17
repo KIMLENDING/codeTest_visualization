@@ -1,5 +1,7 @@
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import Link from 'next/link';
+import { SquareArrowOutUpRight } from 'lucide-react';
 
 const GenreVisualization = () => {
   const genres = ["classic", "pop", "classic", "classic", "pop"];
@@ -25,10 +27,15 @@ const GenreVisualization = () => {
   };
 
   return (
-    <div className="space-y-6 w-full max-w-4xl">
+    <section className="space-y-6 w-full max-w-4xl">
       <Card>
         <CardHeader>
-          <CardTitle>초기 데이터</CardTitle>
+          <div className='flex flex-row items-center gap-2'>
+            <CardTitle>베스트앨범</CardTitle>
+            <Link href={'https://school.programmers.co.kr/learn/courses/30/lessons/42579'}>
+              <SquareArrowOutUpRight />
+            </Link>
+          </div>
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-5 gap-4">
@@ -88,7 +95,7 @@ const GenreVisualization = () => {
           </div>
         </CardContent>
       </Card>
-    </div>
+    </section>
   );
 };
 
