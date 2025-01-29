@@ -11,8 +11,8 @@ interface StationVisualizerProps {
 }
 
 const StationVisualizer = ({
-  n = 30,
-  stations = [4, 11, 26],
+  n = 12,
+  stations = [4, 11],
   w = 1
 }: StationVisualizerProps) => {
   const [hoveredCell, setHoveredCell] = useState<number | null>(null);

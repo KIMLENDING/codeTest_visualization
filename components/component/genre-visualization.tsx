@@ -27,7 +27,7 @@ const GenreVisualization = () => {
   };
 
   return (
-    <section className="space-y-6 w-full max-w-4xl">
+    <section className="space-y-6 w-full max-w-4xl text-nowrap">
       <Card>
         <CardHeader>
           <div className='flex flex-row items-center gap-2'>
@@ -38,14 +38,17 @@ const GenreVisualization = () => {
           </div>
         </CardHeader>
         <CardContent>
-          <div className="grid grid-cols-5 gap-4">
-            {genres.map((genre, i) => (
-              <div key={i} className="border rounded p-4 text-center">
-                <div className="font-bold mb-2">{genreKorean[genre]}</div>
-                <div className="text-2xl">{plays[i].toLocaleString()}</div>
-                <div className="text-sm text-gray-500">인덱스: {i}</div>
-              </div>
-            ))}
+          <div className="grid grid-cols-5 gap-4   overflow-x-scroll">
+            <div className='flex gap-4'>
+
+              {genres.map((genre, i) => (
+                <div key={i} className="border rounded p-4 text-center min-w-[100px]">
+                  <div className="font-bold mb-2">{genreKorean[genre]}</div>
+                  <div className="text-2xl">{plays[i].toLocaleString()}</div>
+                  <div className="text-sm text-gray-500">인덱스: {i}</div>
+                </div>
+              ))}
+            </div>
           </div>
         </CardContent>
       </Card>
@@ -55,14 +58,16 @@ const GenreVisualization = () => {
           <CardTitle>장르별 총 재생 수</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="grid grid-cols-2 gap-4">
-            {[...playMap.entries()].map(([genre, total]) => (
-              <div key={genre} className="border rounded p-4">
-                <div className="font-bold mb-2">{genreKorean[genre]}</div>
-                <div className="text-2xl">{total.toLocaleString()}</div>
-                <div className="text-sm text-gray-500">총 재생 수</div>
-              </div>
-            ))}
+          <div className="grid grid-cols-2 gap-4  overflow-x-scroll">
+            <div className='flex gap-4'>
+              {[...playMap.entries()].map(([genre, total]) => (
+                <div key={genre} className="border rounded p-4 min-w-[100px]">
+                  <div className="font-bold mb-2">{genreKorean[genre]}</div>
+                  <div className="text-2xl">{total.toLocaleString()}</div>
+                  <div className="text-sm text-gray-500">총 재생 수</div>
+                </div>
+              ))}
+            </div>
           </div>
         </CardContent>
       </Card>
@@ -71,10 +76,10 @@ const GenreVisualization = () => {
         <CardHeader>
           <CardTitle>최종 정렬 결과</CardTitle>
         </CardHeader>
-        <CardContent>
+        <CardContent className="min-w-full min-h-full">
           <div className="space-y-4">
             {sortedGenre.map(([genre]) => (
-              <div key={genre} className="border rounded p-4">
+              <div key={genre} className="border rounded p-4 overflow-x-scroll">
                 <div className="font-bold mb-2">
                   {genreKorean[genre]} (상위 2곡)
                 </div>

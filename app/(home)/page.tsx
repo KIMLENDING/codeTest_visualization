@@ -9,8 +9,6 @@ import StationVisualizer from "@/components/component/station-visualization";
 import TrianglePathVisualization from "@/components/component/triangle-path-visualization";
 import ConnectingIsland from "@/components/component/union-find-visualization";
 import WordTransformationVisualizer from "@/components/component/word-transformation-visualizer";
-import { Button } from "@/components/ui/button";
-import { Card, CardTitle } from "@/components/ui/card";
 import { useState } from "react";
 
 
@@ -28,8 +26,6 @@ export default function Home() {
     { title: '단속카메라', component: <RouteVisualization /> },
     { title: '정수 삼각형', component: <TrianglePathVisualization /> },
     { title: '섬 연결하기', component: <ConnectingIsland /> },
-
-
   ]
 
   return (
