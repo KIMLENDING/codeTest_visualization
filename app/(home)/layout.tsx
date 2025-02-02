@@ -1,18 +1,13 @@
 'use client';
 import React, { useEffect, useState } from 'react';
-import ArrayComparisonVisualizer from "@/components/component/array-comparison-visualization";
-import GenreVisualization from "@/components/component/genre-visualization";
-import NetworkVisualization from "@/components/component/network-visualization";
-import PathVisualizer from "@/components/component/path-visualizer";
-import QueueVisualization from "@/components/component/queue-visualization";
-import RouteVisualization from "@/components/component/route-visualization";
-import StationVisualizer from "@/components/component/station-visualization";
-import TrianglePathVisualization from "@/components/component/triangle-path-visualization";
-import ConnectingIsland from "@/components/component/union-find-visualization";
-import WordTransformationVisualizer from "@/components/component/word-transformation-visualizer";
 import { ChevronRight, Menu, X } from 'lucide-react';
+import { pagesObject } from '@/lib/data';
 
-const Layout = () => {
+const Layout = ({
+    children,
+}: Readonly<{
+    children: React.ReactNode;
+}>) => {
     const [select, setSelect] = useState('');
     const [isSidebarOpen, setSidebarOpen] = useState(false);
     const [isMobile, setIsMobile] = useState(false);
@@ -33,18 +28,7 @@ const Layout = () => {
             window.removeEventListener('resize', handleResize);
         };
     }, []);
-    const page = [
-        { title: '기지국 설치', component: <StationVisualizer /> },
-        { title: '숫자 게임', component: <ArrayComparisonVisualizer /> },
-        { title: '베스트앨범', component: <GenreVisualization /> },
-        { title: '단어 변환', component: <WordTransformationVisualizer /> },
-        { title: '네트워크', component: <NetworkVisualization /> },
-        { title: '등굣길', component: <PathVisualizer /> },
-        { title: '이중우선순위큐', component: <QueueVisualization /> },
-        { title: '단속카메라', component: <RouteVisualization /> },
-        { title: '정수 삼각형', component: <TrianglePathVisualization /> },
-        { title: '섬 연결하기', component: <ConnectingIsland /> },
-    ];
+    const page = pagesObject
 
     const handleSelect = (title: string) => {
         setSelect(title);
@@ -55,7 +39,7 @@ const Layout = () => {
     };
 
     return (
-        <div className="min-h-screen bg-gray-50">
+        <div className="min-h-screen  bg-zinc-800">
             {/* Mobile Toggle Button */}
             <div className="md:hidden fixed top-4 left-4 z-50">
                 <button
@@ -73,10 +57,11 @@ const Layout = () => {
             fixed md:relative top-0 left-0 h-full md:h-auto z-40
             transition-transform duration-300 ease-in-out
             ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}
-            bg-white md:bg-transparent
+             md:bg-transparent
             w-72 shrink-0
+        
           `}>
-                        <div className="bg-white rounded-lg shadow-lg overflow-hidden h-screen md:h-auto">
+                        <div className="bg-zinc-200 rounded-lg shadow-lg overflow-hidden h-screen md:h-auto">
                             <div className="p-4 bg-indigo-600 text-white flex justify-between items-center">
                                 <h2 className="text-lg font-semibold">알고리즘 시각화</h2>
                             </div>
@@ -109,7 +94,7 @@ const Layout = () => {
 
                     {/* Main Content */}
                     <div className="flex-1">
-                        <div className="bg-white rounded-lg shadow-lg p-6 min-h-[70vh]">
+                        <div className="bg-zinc-200 rounded-lg shadow-lg p-6 ">
                             {select ? (
                                 page.find((t) => t.title === select)?.component
                             ) : (
