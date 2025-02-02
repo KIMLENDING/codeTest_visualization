@@ -75,60 +75,68 @@ const QueueVisualization = () => {
   return (
     <section className="space-y-6 w-full max-w-4xl">
       <Card>
-        <CardHeader >
+        <CardHeader>
           <div className='flex flex-row items-center gap-2'>
-            <CardTitle >이중우선순위큐 시각화</CardTitle>
+            <CardTitle className="text-lg sm:text-xl">이중우선순위큐 시각화</CardTitle>
             <Link href={'https://school.programmers.co.kr/learn/courses/30/lessons/42628'}>
-              <SquareArrowOutUpRight />
+              <SquareArrowOutUpRight className="h-5 w-5" />
             </Link>
           </div>
         </CardHeader>
 
-
         <CardContent>
-          <div className="flex items-center justify-center space-x-4 mb-6">{operations.map((item, i) => (
-            <div key={i} className={` px-4 py-2 rounded-lg text-white font-medium ${i <= currentStep ? 'bg-blue-500' : 'bg-zinc-400'}`}>
-              {item}
-            </div>
-          ))}</div>
-          <div className="flex items-center justify-center space-x-4 mb-6">
+          <div className="flex flex-wrap justify-center gap-2 mb-6">
+            {operations.map((item, i) => (
+              <div
+                key={i}
+                className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg text-white font-medium text-sm sm:text-base
+                ${i <= currentStep ? 'bg-blue-500' : 'bg-zinc-400'}`}
+              >
+                {item}
+              </div>
+            ))}
+          </div>
+
+          <div className="flex items-center justify-center gap-2 sm:gap-4 mb-6">
             <button
               onClick={handleStepBack}
-              className="p-2 rounded hover:bg-gray-100"
+              className="p-1.5 sm:p-2 rounded hover:bg-gray-100"
               disabled={currentStep === 0}
             >
-              <SkipBack className="w-6 h-6" />
+              <SkipBack className="w-5 h-5 sm:w-6 sm:h-6" />
             </button>
 
             <button
               onClick={handlePlayPause}
-              className="p-2 rounded hover:bg-gray-100"
+              className="p-1.5 sm:p-2 rounded hover:bg-gray-100"
             >
-              {isPlaying ? <Pause className="w-6 h-6" /> : <Play className="w-6 h-6" />}
+              {isPlaying ?
+                <Pause className="w-5 h-5 sm:w-6 sm:h-6" /> :
+                <Play className="w-5 h-5 sm:w-6 sm:h-6" />
+              }
             </button>
 
             <button
               onClick={handleStepForward}
-              className="p-2 rounded hover:bg-gray-100"
+              className="p-1.5 sm:p-2 rounded hover:bg-gray-100"
               disabled={currentStep === operations.length - 1}
             >
-              <SkipForward className="w-6 h-6" />
+              <SkipForward className="w-5 h-5 sm:w-6 sm:h-6" />
             </button>
 
             <button
               onClick={handleReset}
-              className="px-4 py-2 bg-gray-100 rounded hover:bg-gray-200"
+              className="px-3 sm:px-4 py-1.5 sm:py-2 bg-gray-100 rounded hover:bg-gray-200 text-sm sm:text-base"
             >
               리셋
             </button>
           </div>
 
-          {/* 현재 연산 */}
           <div className="mb-6 text-center">
-            <div className="text-lg font-medium">
+            <div className="text-base sm:text-lg font-medium">
               현재 연산: <span className="font-bold">{operations[currentStep]}</span>
             </div>
-            <div className="text-sm text-gray-600">
+            <div className="text-xs sm:text-sm text-gray-600">
               {op === 'I' ?
                 `${num} 삽입` :
                 `${num === '1' ? '최대값' : '최소값'} 삭제`
@@ -136,25 +144,23 @@ const QueueVisualization = () => {
             </div>
           </div>
 
-
           <div className="flex flex-wrap gap-2 justify-center mb-6">
             {currentArray.map((value, index) => (
               <div
                 key={index}
                 className={`
-              px-4 py-2 rounded-lg text-white font-medium
-              ${value === Math.max(...currentArray) ? 'bg-blue-600' :
+                px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg text-white font-medium text-sm sm:text-base
+                ${value === Math.max(...currentArray) ? 'bg-blue-600' :
                     value === Math.min(...currentArray) ? 'bg-red-600' :
                       'bg-gray-500'}
-                `}
+              `}
               >
                 {value}
               </div>
             ))}
           </div>
 
-
-          <div className="text-sm text-gray-600 text-center">
+          <div className="text-xs sm:text-sm text-gray-600 text-center">
             단계: {currentStep + 1} / {operations.length}
           </div>
         </CardContent>

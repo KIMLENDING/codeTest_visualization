@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ArrayComparisonVisualizer from "@/components/component/array-comparison-visualization";
 import GenreVisualization from "@/components/component/genre-visualization";
 import NetworkVisualization from "@/components/component/network-visualization";
@@ -15,7 +15,24 @@ import { ChevronRight, Menu, X } from 'lucide-react';
 const Layout = () => {
     const [select, setSelect] = useState('');
     const [isSidebarOpen, setSidebarOpen] = useState(false);
+    const [isMobile, setIsMobile] = useState(false);
 
+    useEffect(() => {
+        const handleResize = () => {
+            setIsMobile(window.innerWidth < 768);
+        };
+
+        // 초기 로드 시 한 번 실행
+        handleResize();
+
+        // 윈도우 리사이즈 이벤트 리스너 등록
+        window.addEventListener('resize', handleResize);
+
+        // 컴포넌트 언마운트 시 이벤트 리스너 제거
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
     const page = [
         { title: '기지국 설치', component: <StationVisualizer /> },
         { title: '숫자 게임', component: <ArrayComparisonVisualizer /> },
@@ -98,9 +115,9 @@ const Layout = () => {
                             ) : (
                                 <div className="h-full flex items-center justify-center text-gray-500">
                                     <p className="text-center">
-                                        {window.innerWidth < 768 ?
-                                            "좌측 상단 메뉴 버튼을 눌러 알고리즘을 선택해주세요" :
-                                            "왼쪽 메뉴에서 시각화할 알고리즘을 선택해주세요"}
+                                        {isMobile
+                                            ? "좌측 상단 메뉴 버튼을 눌러 알고리즘을 선택해주세요"
+                                            : "왼쪽 메뉴에서 시각화할 알고리즘을 선택해주세요"}
                                     </p>
                                 </div>
                             )}

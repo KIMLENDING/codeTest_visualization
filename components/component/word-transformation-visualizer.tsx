@@ -146,7 +146,7 @@ const WordTransformationVisualizer = ({
 
           <div className="flex flex-wrap items-center justify-center gap-4">
             {currentPath.slice(0, step + 1).map((word, index) => (
-              <React.Fragment key={index}>
+              <div className='flex items-center' key={index}>
                 <div className="flex flex-col items-center">
                   <div className={`p-4 rounded-lg min-w-20 text-center ${word === beginWord ? 'bg-blue-100' :
                     word === targetWord ? 'bg-green-100' :
@@ -161,10 +161,10 @@ const WordTransformationVisualizer = ({
                     Step {index}
                   </div>
                 </div>
-                {index < step && (
-                  <ArrowRight className="text-gray-400" />
+                {index < step - 1 && (
+                  <ArrowRight className="text-gray-400 ml-3 mb-5" />
                 )}
-              </React.Fragment>
+              </div>
             ))}
           </div>
 

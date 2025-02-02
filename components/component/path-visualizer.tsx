@@ -47,24 +47,28 @@ const PathVisualizer = () => {
   return (
     <Card className="w-full max-w-4xl">
       <CardHeader>
-
-        <div className='flex flex-row items-center gap-2'>
-
-          <CardTitle>등굣길 경로 찾기 시각화 (단계 {step + 1}/{grid.length})</CardTitle>
+        <div className='flex flex-row items-center gap-2 flex-wrap'>
+          <CardTitle className="text-base sm:text-xl">
+            등굣길 경로 찾기
+          </CardTitle>
+          <div className="text-sm sm:text-base text-gray-500">
+            (단계 {step + 1}/{grid.length})
+          </div>
           <Link href={'https://school.programmers.co.kr/learn/courses/30/lessons/42898'}>
-            <SquareArrowOutUpRight />
+            <SquareArrowOutUpRight className="h-5 w-5" />
           </Link>
         </div>
       </CardHeader>
       <CardContent>
         <div className="space-y-4">
-          <div className="grid gap-2">
+          <div className="grid gap-1 sm:gap-2 max-w-full overflow-x-auto pb-2">
             {grid[step]?.dp.map((row, i) => (
-              <div key={i} className="flex gap-2">
+              <div key={i} className="flex gap-1 sm:gap-2">
                 {row.map((cell, j) => (
                   <div
                     key={j}
-                    className={`w-20 h-20 flex items-center justify-center border text-sm
+                    className={`w-12 h-12 sm:w-16 sm:h-16 lg:w-20 lg:h-20 
+                      flex items-center justify-center border text-xs sm:text-sm lg:text-base
                       ${grid[step].puddles[i][j] ? 'bg-red-200' :
                         cell > 0 ? 'bg-blue-200' : 'bg-gray-50'}`}
                   >
@@ -78,12 +82,14 @@ const PathVisualizer = () => {
             <Button
               onClick={() => setStep(prev => Math.max(0, prev - 1))}
               disabled={step === 0}
+              className="text-sm sm:text-base"
             >
               이전
             </Button>
             <Button
               onClick={() => setStep(prev => Math.min(grid.length - 1, prev + 1))}
               disabled={step === grid.length - 1}
+              className="text-sm sm:text-base"
             >
               다음
             </Button>

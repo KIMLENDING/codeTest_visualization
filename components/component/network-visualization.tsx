@@ -77,23 +77,23 @@ const NetworkVisualization = () => {
       <Card>
         <CardHeader>
           <div className='flex flex-row items-center gap-2'>
-            <CardTitle>네트워크 시각화</CardTitle>
+            <CardTitle className="text-xl sm:text-2xl">네트워크 시각화</CardTitle>
             <Link href={'https://school.programmers.co.kr/learn/courses/30/lessons/43162'}>
-              <SquareArrowOutUpRight />
+              <SquareArrowOutUpRight className="h-5 w-5" />
             </Link>
           </div>
         </CardHeader>
         <CardContent>
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             <div>
               <h3 className="text-lg font-semibold mb-4">연결 상태 매트릭스</h3>
-              <div className="grid grid-cols-4 gap-1">
+              <div className="grid grid-cols-4 gap-1 max-w-[240px] sm:max-w-none mx-auto">
                 {networkState.computers.map((row, i) =>
                   row.map((cell, j) => (
                     <div
                       key={`${i}-${j}`}
                       className={`
-                        w-12 h-12 flex items-center justify-center
+                        w-8 h-8 sm:w-12 sm:h-12 flex items-center justify-center text-sm sm:text-base
                         border rounded
                         ${cell ? 'bg-blue-200' : 'bg-gray-100'}
                         ${networkState.currentNode === i ? 'ring-2 ring-blue-500' : ''}
@@ -105,7 +105,7 @@ const NetworkVisualization = () => {
                   ))
                 )}
               </div>
-              <div className="mt-2 text-sm text-gray-600">
+              <div className="mt-2 text-xs sm:text-sm text-gray-600">
                 <p>1: 연결됨, 0: 연결되지 않음</p>
               </div>
             </div>
@@ -113,12 +113,12 @@ const NetworkVisualization = () => {
             <div>
               <h3 className="text-lg font-semibold mb-4">현재 상태</h3>
               <div className="space-y-2">
-                <p>발견된 네트워크 수: {networkState.networkCount}</p>
-                <p>현재 확인 중인 컴퓨터: {networkState.currentNode !== null ? `${networkState.currentNode}번` : '없음'}</p>
+                <p className="text-sm sm:text-base">발견된 네트워크 수: {networkState.networkCount}</p>
+                <p className="text-sm sm:text-base">현재 확인 중인 컴퓨터: {networkState.currentNode !== null ? `${networkState.currentNode}번` : '없음'}</p>
                 <button
-                  className={`px-4 py-2 rounded ${networkState.isRunning
-                    ? 'bg-gray-300 cursor-not-allowed'
-                    : 'bg-blue-500 text-white hover:bg-blue-600'
+                  className={`w-full sm:w-auto px-4 py-2 rounded text-sm sm:text-base ${networkState.isRunning
+                      ? 'bg-gray-300 cursor-not-allowed'
+                      : 'bg-blue-500 text-white hover:bg-blue-600'
                     }`}
                   onClick={startVisualization}
                   disabled={networkState.isRunning}
@@ -129,11 +129,11 @@ const NetworkVisualization = () => {
             </div>
           </div>
 
-          <div className="mt-4">
+          <div className="mt-6">
             <h3 className="text-lg font-semibold mb-2">실행 기록</h3>
-            <div className="h-40 overflow-y-auto border rounded p-2 bg-gray-50">
+            <div className="h-32 sm:h-40 overflow-y-auto border rounded p-2 bg-gray-50">
               {networkState.log.map((entry, i) => (
-                <div key={i} className="text-sm">
+                <div key={i} className="text-xs sm:text-sm">
                   {entry}
                 </div>
               ))}

@@ -71,26 +71,27 @@ const ArrayComparisonVisualizer = () => {
   };
 
   return (
-    <Card className="w-full max-w-4xl">
+    <Card className="w-full max-w-4xl mx-auto">
       <CardHeader>
-        <div className='flex flex-row items-center gap-2'>
-          <CardTitle>숫자 게임 시각화</CardTitle>
+        <div className="flex flex-row items-center gap-2">
+          <CardTitle className="text-xl sm:text-2xl">숫자 게임 시각화</CardTitle>
           <Link href={'https://school.programmers.co.kr/learn/courses/30/lessons/12987'}>
-            <SquareArrowOutUpRight />
+            <SquareArrowOutUpRight className="h-5 w-5" />
           </Link>
         </div>
-
       </CardHeader>
       <CardContent>
-
-        <div className="space-y-6">
+        <div className="space-y-4">
           {currentStep === -1 && (
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <h3 className="font-semibold mb-2">원본 배열 A:</h3>
-                <div className="flex flex-wrap">
+                <div className="flex flex-wrap gap-1">
                   {A.map((num, i) => (
-                    <div key={i} className="p-2 m-1 rounded-lg bg-white border border-gray-300 w-12 h-12 flex items-center justify-center">
+                    <div
+                      key={i}
+                      className="p-1 sm:p-2 rounded-lg bg-white border border-gray-300 w-8 sm:w-12 h-8 sm:h-12 flex items-center justify-center text-sm sm:text-base"
+                    >
                       {num}
                     </div>
                   ))}
@@ -98,9 +99,12 @@ const ArrayComparisonVisualizer = () => {
               </div>
               <div>
                 <h3 className="font-semibold mb-2">원본 배열 B:</h3>
-                <div className="flex flex-wrap">
+                <div className="flex flex-wrap gap-1">
                   {B.map((num, i) => (
-                    <div key={i} className="p-2 m-1 rounded-lg bg-white border border-gray-300 w-12 h-12 flex items-center justify-center">
+                    <div
+                      key={i}
+                      className="p-1 sm:p-2 rounded-lg bg-white border border-gray-300 w-8 sm:w-12 h-8 sm:h-12 flex items-center justify-center text-sm sm:text-base"
+                    >
                       {num}
                     </div>
                   ))}
@@ -113,9 +117,12 @@ const ArrayComparisonVisualizer = () => {
             <div className="space-y-4">
               <div>
                 <h3 className="font-semibold mb-2">정렬된 배열 A:</h3>
-                <div className="flex flex-wrap">
+                <div className="flex flex-wrap gap-1">
                   {sortedA.map((num, i) => (
-                    <div key={i} className={getItemStyle(sortedA, i, pointerA)}>
+                    <div
+                      key={i}
+                      className={`${getItemStyle(sortedA, i, pointerA)} w-8 sm:w-12 h-8 sm:h-12 text-sm sm:text-base`}
+                    >
                       {num}
                     </div>
                   ))}
@@ -123,46 +130,47 @@ const ArrayComparisonVisualizer = () => {
               </div>
               <div>
                 <h3 className="font-semibold mb-2">정렬된 배열 B:</h3>
-                <div className="flex flex-wrap">
+                <div className="flex flex-wrap gap-1">
                   {sortedB.map((num, i) => (
-                    <div key={i} className={getItemStyle(sortedB, i, pointerB)}>
+                    <div
+                      key={i}
+                      className={`${getItemStyle(sortedB, i, pointerB)} w-8 sm:w-12 h-8 sm:h-12 text-sm sm:text-base`}
+                    >
                       {num}
                     </div>
                   ))}
                 </div>
               </div>
-              <div className="text-lg font-semibold">
+              <div className="text-base sm:text-lg font-semibold">
                 현재 점수: {score}
               </div>
             </div>
           )}
 
-          <div className="flex justify-center space-x-4">
+          <div className="flex justify-center space-x-2 sm:space-x-4">
             <Button
               onClick={nextStep}
               disabled={isComplete}
+              className="text-sm sm:text-base"
             >
-              {currentStep === -1 ? '시작' : '다음 단계'} <ChevronRight className="ml-2 h-4 w-4" />
+              {currentStep === -1 ? '시작' : '다음 단계'}
+              <ChevronRight className="ml-1 sm:ml-2 h-3 w-3 sm:h-4 sm:w-4" />
             </Button>
-            {/* <Button
-              onClick={reset}
-              variant="outline"
-            >
-              재시작 <RotateCcw className="ml-2 h-4 w-4" />
-            </Button> */}
             <Button
               onClick={() => {
                 reset();
                 setDices(dices => !dices);
               }}
               variant="outline"
+              className="text-sm sm:text-base"
             >
-              <DicesIcon /> <RotateCcw className="ml-2 h-4 w-4" />
+              <DicesIcon className="h-3 w-3 sm:h-4 sm:w-4" />
+              <RotateCcw className="ml-1 sm:ml-2 h-3 w-3 sm:h-4 sm:w-4" />
             </Button>
           </div>
 
           {isComplete && (
-            <div className="text-center text-lg font-semibold text-green-600">
+            <div className="text-center text-base sm:text-lg font-semibold text-green-600">
               완료! 최종 점수: {score}
             </div>
           )}
