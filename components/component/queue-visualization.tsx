@@ -14,7 +14,7 @@ const QueueVisualization = () => {
   ];
 
   const getStateAtStep = (step: number) => {
-    let array = [];
+    const array = [];
     for (let i = 0; i <= step; i++) {
       const [op, num] = operations[i].split(" ");
       if (op === "I") {

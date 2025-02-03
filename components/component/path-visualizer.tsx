@@ -13,7 +13,7 @@ const PathVisualizer = () => {
   useEffect(() => {
     const calculatePaths = () => {
       const MOD = 1000000007;
-      let steps = [];
+      const steps = [];
       const dp = Array.from({ length: n }, () => Array(m).fill(0));
       const isPuddle = Array.from({ length: n }, () => Array(m).fill(false));
       dp[0][0] = 1;

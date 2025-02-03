@@ -17,6 +17,7 @@ const Ranking = () => {
     const base = Array.from({ length: n + 1 }, () => Array(n + 1).fill("N"));
     const [dist, setDist] = useState(base);
     const [play, setPlay] = useState(false);
+    const [answer, setAnswer] = useState(0);
     const [k, setK] = useState(1);
     const [i, setI] = useState(1);
     const [j, setJ] = useState(1);
@@ -78,13 +79,32 @@ const Ranking = () => {
         }
     };
 
+    // 순위를 알 수 있는 선수 유추
+
+    const result = () => {
+        let answer = n;
+        for (let i = 1; i <= n; i++) {
+            let count = 0;
+            for (let j = 1; j <= n; j++) {
+                if (dist[i][j] === "N") count++;
+                if (count > 1) {
+                    answer--;
+                    break;
+                }
+            }
+        }
+        return answer
+    }
+
     useEffect(() => {
         const timer = setTimeout(() => {
             Floyd_Warshall();
         }, 100); // 각 단계를 보여주기 위한 딜레이
-
+        if (i === n && j === n && k === n) setAnswer(result)
         return () => clearTimeout(timer);
-    }, [play, i, j, k, dist]);
+    }, [play, i, j, k, dist, Floyd_Warshall]);
+
+
 
     return (
         <Card className="w-full max-w-4xl mx-auto">
@@ -118,13 +138,16 @@ const Ranking = () => {
                                     ${item === '승' ? 'bg-green-400' :
                                         item === '패' ? 'bg-red-500' :
                                             'bg-zinc-200 border-gray-300'}
-                                    ${idx === j && index === i ? 'ring-2 ring-blue-500' : ''}
-                                    ${idx === k || index === k ? 'ring-2 ring-yellow-500' : ''}`}>
+                                    ${idx === j && index === i ? 'ring-4 ring-blue-500 bg-blue-300' : ''}
+                                    ${idx === k || index === k ? 'ring-4 ring-yellow-500' : ''}`}>
                                 {item}
                             </div>
                         ))}
                     </div>
                 ))}
+                <div>
+                    순위를 알 수 있는 선수는 {answer}명
+                </div>
             </CardContent>
         </Card>
     );
