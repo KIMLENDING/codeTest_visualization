@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react'
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
 import Link from 'next/link';
-import { Divide, Flag, SquareArrowOutUpRight } from 'lucide-react';
+import { SquareArrowOutUpRight } from 'lucide-react';
 import { Button } from '../ui/button';
 
 const Ranking = () => {
