@@ -1,7 +1,8 @@
 'use client';
 import React, { useEffect, useState } from 'react';
-import { ChevronRight, Menu, X } from 'lucide-react';
+import { ChevronRight, Github, Menu, X } from 'lucide-react';
 import { pagesObject } from '@/lib/data';
+import Link from 'next/link';
 
 const Layout = ({
     children,
@@ -67,18 +68,29 @@ const Layout = ({
                             </div>
                             <div className="divide-y divide-gray-100 max-h-[calc(100vh-4rem)] md:max-h-[70vh] overflow-y-auto">
                                 {page.map((item) => (
-                                    <button
-                                        key={item.title}
-                                        onClick={() => handleSelect(item.title)}
-                                        className={`w-full px-4 py-3 flex items-center justify-between transition-colors duration-150 hover:bg-indigo-50 ${select === item.title ? 'bg-indigo-100 text-indigo-600' : 'text-gray-700'
-                                            }`}
-                                    >
-                                        <span className="font-medium">{item.title}</span>
-                                        <ChevronRight
-                                            className={`w-4 h-4 transition-transform ${select === item.title ? 'rotate-90 text-indigo-600' : 'text-gray-400'
+                                    <div key={item.title} className='flex flex-row'>
+
+                                        <button
+                                            onClick={() => handleSelect(item.title)}
+                                            className={`w-full px-4 py-3 flex items-center justify-between transition-colors duration-150 hover:bg-indigo-50 ${select === item.title ? 'bg-indigo-100 text-indigo-600' : 'text-gray-700'
                                                 }`}
-                                        />
-                                    </button>
+                                        >
+                                            <span className="font-medium">{item.title}</span>
+                                            <ChevronRight
+                                                className={`w-4 h-4 transition-transform ${select === item.title ? 'rotate-90 text-indigo-600' : 'text-gray-400'
+                                                    }`}
+                                            />
+                                        </button>
+                                        <div className='flex items-center justify-between group relative'>
+                                            <div className='hidden group-hover:block  -top-8 bg-gray-800 text-white px-2 py-1 rounded text-sm'>
+                                                코드보기
+                                            </div>
+                                            <Link href={item.codeUrl}>
+                                                <Github className="h-5 w-5" />
+
+                                            </Link>
+                                        </div>
+                                    </div>
                                 ))}
                             </div>
                         </div>
