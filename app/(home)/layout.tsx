@@ -4,20 +4,21 @@ import React, { useState } from 'react';
 import { ChevronRight, Github, Menu, X } from 'lucide-react';
 import { pagesObject } from '@/lib/data';
 import Link from 'next/link';
-import { useSearchParams, useRouter } from 'next/navigation';
+import { useRouter, useParams } from 'next/navigation';
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
-    const searchParams = useSearchParams();
+    const params = useParams();
     const router = useRouter();
     const [isSidebarOpen, setSidebarOpen] = useState(false);
 
     // 선택된 페이지를 URL에서 가져오기
-    const select = searchParams.get('id') || '';
+    const select = params.id || '';
     const page = pagesObject;
 
     // 페이지 선택 시 URL 변경
     const handleSelect = (title: string) => {
-        router.push(`?id=${title}`, { scroll: false });
+        console.log(title)
+        router.push(`/${title}`, { scroll: false });
         if (window.innerWidth < 768) setSidebarOpen(false);
     };
 
