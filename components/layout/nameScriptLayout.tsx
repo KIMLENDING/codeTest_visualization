@@ -1,3 +1,4 @@
+"use client";  // 클라이언트 컴포넌트로 설정
 import React from 'react'
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/card'
 import Link from 'next/link'
