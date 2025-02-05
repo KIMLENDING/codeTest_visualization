@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, RotateCw, MoveRight, SquareArrowOutUpRight } from 'lucide-react';
-import Link from 'next/link';
+import { ArrowRight, RotateCw, MoveRight, } from 'lucide-react';
+import NameScriptLayout from '../layout/nameScriptLayout';
 
 interface WordTransformationProps {
   beginWord?: string;
@@ -91,91 +90,83 @@ const WordTransformationVisualizer = ({
   };
 
   return (
-    <Card className="w-full max-w-4xl">
-      <CardHeader>
-        <div className='flex flex-row items-center gap-2'>
-          <CardTitle>단어 변환 시각화</CardTitle>
-          <Link href={'https://school.programmers.co.kr/learn/courses/30/lessons/43163'}>
-            <SquareArrowOutUpRight />
-          </Link>
+
+
+    <NameScriptLayout title='단어 변환 시각화' hrefLink='https://school.programmers.co.kr/learn/courses/30/lessons/43163'>
+      <div className="space-y-6 mb-8">
+        {/* 시작 단어와 목표 단어 표시 */}
+        <div className="flex items-center justify-center space-x-4 bg-gray-50 p-4 rounded-lg">
+          <div className="text-center">
+            <div className="text-sm text-gray-500 mb-1">시작 단어</div>
+            <div className="font-bold text-lg text-blue-600">{beginWord}</div>
+          </div>
+          <MoveRight className="text-gray-400" />
+          <div className="text-center">
+            <div className="text-sm text-gray-500 mb-1">목표 단어</div>
+            <div className="font-bold text-lg text-green-600">{targetWord}</div>
+          </div>
         </div>
-      </CardHeader>
-      <CardContent>
-        <div className="space-y-6">
-          {/* 시작 단어와 목표 단어 표시 */}
-          <div className="flex items-center justify-center space-x-4 bg-gray-50 p-4 rounded-lg">
-            <div className="text-center">
-              <div className="text-sm text-gray-500 mb-1">시작 단어</div>
-              <div className="font-bold text-lg text-blue-600">{beginWord}</div>
-            </div>
-            <MoveRight className="text-gray-400" />
-            <div className="text-center">
-              <div className="text-sm text-gray-500 mb-1">목표 단어</div>
-              <div className="font-bold text-lg text-green-600">{targetWord}</div>
-            </div>
-          </div>
 
-          {/* 사용 가능한 단어 목록 */}
-          <div className="bg-gray-50 p-4 rounded-lg">
-            <div className="text-sm text-gray-500 mb-2">사용 가능한 단어 목록</div>
-            <div className="flex flex-wrap gap-2">
-              {wordList.map((word) => (
-                <div
-                  key={word}
-                  className={`px-3 py-1 rounded-full text-sm ${currentPath.slice(0, step + 1).includes(word)
-                    ? 'bg-blue-100 text-blue-700'
-                    : 'bg-gray-200 text-gray-600'
-                    }`}
-                >
-                  {word}
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div className="flex items-center justify-center space-x-4">
-            <Button
-              onClick={startAnimation}
-              className="flex items-center space-x-2"
-              disabled={isAnimating}
-            >
-              <RotateCw className="w-4 h-4" />
-              <span>변환 과정 보기</span>
-            </Button>
-          </div>
-
-          <div className="flex flex-wrap items-center justify-center gap-4">
-            {currentPath.slice(0, step + 1).map((word, index) => (
-              <div className='flex items-center' key={index}>
-                <div className="flex flex-col items-center">
-                  <div className={`p-4 rounded-lg min-w-20 text-center ${word === beginWord ? 'bg-blue-100' :
-                    word === targetWord ? 'bg-green-100' :
-                      'bg-gray-100'
-                    }`}>
-                    {highlightDifference(
-                      word,
-                      index > 0 ? currentPath[index - 1] : null
-                    )}
-                  </div>
-                  <div className="text-sm text-gray-500 mt-1">
-                    Step {index}
-                  </div>
-                </div>
-                {index < step - 1 && (
-                  <ArrowRight className="text-gray-400 ml-3 mb-5" />
-                )}
+        {/* 사용 가능한 단어 목록 */}
+        <div className="bg-gray-50 p-4 rounded-lg">
+          <div className="text-sm text-gray-500 mb-2">사용 가능한 단어 목록</div>
+          <div className="flex flex-wrap gap-2">
+            {wordList.map((word) => (
+              <div
+                key={word}
+                className={`px-3 py-1 rounded-full text-sm ${currentPath.slice(0, step + 1).includes(word)
+                  ? 'bg-blue-100 text-blue-700'
+                  : 'bg-gray-200 text-gray-600'
+                  }`}
+              >
+                {word}
               </div>
             ))}
           </div>
-
-          <div className="mt-6">
-            <p className="text-sm text-gray-600">
-              총 {paths.length}개의 가능한 경로 중 최단 경로: {shortestPath ? shortestPath.length - 1 : 0} 단계
-            </p>
-          </div>
         </div>
-      </CardContent>
-    </Card>
+
+        <div className="flex items-center justify-center space-x-4">
+          <Button
+            onClick={startAnimation}
+            className="flex items-center space-x-2"
+            disabled={isAnimating}
+          >
+            <RotateCw className="w-4 h-4" />
+            <span>변환 과정 보기</span>
+          </Button>
+        </div>
+
+        <div className="flex flex-wrap items-center justify-center gap-4">
+          {currentPath.slice(0, step + 1).map((word, index) => (
+            <div className='flex items-center' key={index}>
+              <div className="flex flex-col items-center">
+                <div className={`p-4 rounded-lg min-w-20 text-center ${word === beginWord ? 'bg-blue-100' :
+                  word === targetWord ? 'bg-green-100' :
+                    'bg-gray-100'
+                  }`}>
+                  {highlightDifference(
+                    word,
+                    index > 0 ? currentPath[index - 1] : null
+                  )}
+                </div>
+                <div className="text-sm text-gray-500 mt-1">
+                  Step {index}
+                </div>
+              </div>
+              {index < step - 1 && (
+                <ArrowRight className="text-gray-400 ml-3 mb-5" />
+              )}
+            </div>
+          ))}
+        </div>
+
+        <div className="mt-6">
+          <p className="text-sm text-gray-600">
+            총 {paths.length}개의 가능한 경로 중 최단 경로: {shortestPath ? shortestPath.length - 1 : 0} 단계
+          </p>
+        </div>
+      </div>
+    </NameScriptLayout>
   );
 };
 

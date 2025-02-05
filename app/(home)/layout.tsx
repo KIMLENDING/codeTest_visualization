@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { ChevronRight, Github, Menu, X } from 'lucide-react';
 import { pagesObject } from '@/lib/data';
 import Link from 'next/link';

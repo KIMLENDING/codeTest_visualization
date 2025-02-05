@@ -1,9 +1,8 @@
 'use client';
 import React, { useState, useEffect } from 'react';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { ChevronRight, DicesIcon, RotateCcw, SquareArrowOutUpRight } from 'lucide-react';
-import Link from 'next/link';
+import { ChevronRight, DicesIcon, RotateCcw, } from 'lucide-react';
+import NameScriptLayout from '../layout/nameScriptLayout';
 
 const ArrayComparisonVisualizer = () => {
   const [A, setA] = useState([7, 5, 4, 3, 3, 2, 2]);
@@ -71,16 +70,8 @@ const ArrayComparisonVisualizer = () => {
   };
 
   return (
-    <Card className="w-full max-w-4xl mx-auto">
-      <CardHeader>
-        <div className="flex flex-row items-center gap-2">
-          <CardTitle className="text-xl sm:text-2xl">숫자 게임 시각화</CardTitle>
-          <Link href={'https://school.programmers.co.kr/learn/courses/30/lessons/12987'}>
-            <SquareArrowOutUpRight className="h-5 w-5" />
-          </Link>
-        </div>
-      </CardHeader>
-      <CardContent>
+    <NameScriptLayout title='숫자 게임 시각화' hrefLink='https://school.programmers.co.kr/learn/courses/30/lessons/12987'>
+      <div className="flex flex-col items-center space-y-1 ">
         <div className="space-y-4">
           {currentStep === -1 && (
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -175,8 +166,8 @@ const ArrayComparisonVisualizer = () => {
             </div>
           )}
         </div>
-      </CardContent>
-    </Card>
+      </div>
+    </NameScriptLayout>
   );
 };
 

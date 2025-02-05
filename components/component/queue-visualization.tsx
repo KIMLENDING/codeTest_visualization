@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Play, Pause, SkipBack, SkipForward, SquareArrowOutUpRight } from 'lucide-react';
-import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
-import Link from 'next/link';
+import { Play, Pause, SkipBack, SkipForward } from 'lucide-react';
+import NameScriptLayout from '../layout/nameScriptLayout';
 
 const QueueVisualization = () => {
   const [currentStep, setCurrentStep] = useState(0);
@@ -73,99 +72,90 @@ const QueueVisualization = () => {
   const [op, num] = operations[currentStep].split(" ");
 
   return (
-    <section className="space-y-6 w-full max-w-4xl">
-      <Card>
-        <CardHeader>
-          <div className='flex flex-row items-center gap-2'>
-            <CardTitle className="text-lg sm:text-xl">이중우선순위큐 시각화</CardTitle>
-            <Link href={'https://school.programmers.co.kr/learn/courses/30/lessons/42628'}>
-              <SquareArrowOutUpRight className="h-5 w-5" />
-            </Link>
-          </div>
-        </CardHeader>
 
-        <CardContent>
-          <div className="flex flex-wrap justify-center gap-2 mb-6">
-            {operations.map((item, i) => (
-              <div
-                key={i}
-                className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg text-white font-medium text-sm sm:text-base
+    <NameScriptLayout title='이중우선순위큐 시각화' hrefLink='https://school.programmers.co.kr/learn/courses/30/lessons/42628'>
+      {/* <div className="flex flex-col items-center space-y-1 mb-8"> */}
+
+      <div className="flex flex-wrap justify-center gap-2 mb-6">
+        {operations.map((item, i) => (
+          <div
+            key={i}
+            className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg text-white font-medium text-sm sm:text-base
                 ${i <= currentStep ? 'bg-blue-500' : 'bg-zinc-400'}`}
-              >
-                {item}
-              </div>
-            ))}
+          >
+            {item}
           </div>
+        ))}
+      </div>
 
-          <div className="flex items-center justify-center gap-2 sm:gap-4 mb-6">
-            <button
-              onClick={handleStepBack}
-              className="p-1.5 sm:p-2 rounded hover:bg-gray-100"
-              disabled={currentStep === 0}
-            >
-              <SkipBack className="w-5 h-5 sm:w-6 sm:h-6" />
-            </button>
+      <div className="flex items-center justify-center gap-2 sm:gap-4 mb-6">
+        <button
+          onClick={handleStepBack}
+          className="p-1.5 sm:p-2 rounded hover:bg-gray-100"
+          disabled={currentStep === 0}
+        >
+          <SkipBack className="w-5 h-5 sm:w-6 sm:h-6" />
+        </button>
 
-            <button
-              onClick={handlePlayPause}
-              className="p-1.5 sm:p-2 rounded hover:bg-gray-100"
-            >
-              {isPlaying ?
-                <Pause className="w-5 h-5 sm:w-6 sm:h-6" /> :
-                <Play className="w-5 h-5 sm:w-6 sm:h-6" />
-              }
-            </button>
+        <button
+          onClick={handlePlayPause}
+          className="p-1.5 sm:p-2 rounded hover:bg-gray-100"
+        >
+          {isPlaying ?
+            <Pause className="w-5 h-5 sm:w-6 sm:h-6" /> :
+            <Play className="w-5 h-5 sm:w-6 sm:h-6" />
+          }
+        </button>
 
-            <button
-              onClick={handleStepForward}
-              className="p-1.5 sm:p-2 rounded hover:bg-gray-100"
-              disabled={currentStep === operations.length - 1}
-            >
-              <SkipForward className="w-5 h-5 sm:w-6 sm:h-6" />
-            </button>
+        <button
+          onClick={handleStepForward}
+          className="p-1.5 sm:p-2 rounded hover:bg-gray-100"
+          disabled={currentStep === operations.length - 1}
+        >
+          <SkipForward className="w-5 h-5 sm:w-6 sm:h-6" />
+        </button>
 
-            <button
-              onClick={handleReset}
-              className="px-3 sm:px-4 py-1.5 sm:py-2 bg-gray-100 rounded hover:bg-gray-200 text-sm sm:text-base"
-            >
-              리셋
-            </button>
-          </div>
+        <button
+          onClick={handleReset}
+          className="px-3 sm:px-4 py-1.5 sm:py-2 bg-gray-100 rounded hover:bg-gray-200 text-sm sm:text-base"
+        >
+          리셋
+        </button>
+      </div>
 
-          <div className="mb-6 text-center">
-            <div className="text-base sm:text-lg font-medium">
-              현재 연산: <span className="font-bold">{operations[currentStep]}</span>
-            </div>
-            <div className="text-xs sm:text-sm text-gray-600">
-              {op === 'I' ?
-                `${num} 삽입` :
-                `${num === '1' ? '최대값' : '최소값'} 삭제`
-              }
-            </div>
-          </div>
+      <div className="mb-6 text-center">
+        <div className="text-base sm:text-lg font-medium">
+          현재 연산: <span className="font-bold">{operations[currentStep]}</span>
+        </div>
+        <div className="text-xs sm:text-sm text-gray-600">
+          {op === 'I' ?
+            `${num} 삽입` :
+            `${num === '1' ? '최대값' : '최소값'} 삭제`
+          }
+        </div>
+      </div>
 
-          <div className="flex flex-wrap gap-2 justify-center mb-6">
-            {currentArray.map((value, index) => (
-              <div
-                key={index}
-                className={`
+      <div className="flex flex-wrap gap-2 justify-center mb-6">
+        {currentArray.map((value, index) => (
+          <div
+            key={index}
+            className={`
                 px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg text-white font-medium text-sm sm:text-base
                 ${value === Math.max(...currentArray) ? 'bg-blue-600' :
-                    value === Math.min(...currentArray) ? 'bg-red-600' :
-                      'bg-gray-500'}
+                value === Math.min(...currentArray) ? 'bg-red-600' :
+                  'bg-gray-500'}
               `}
-              >
-                {value}
-              </div>
-            ))}
+          >
+            {value}
           </div>
+        ))}
+      </div>
 
-          <div className="text-xs sm:text-sm text-gray-600 text-center">
-            단계: {currentStep + 1} / {operations.length}
-          </div>
-        </CardContent>
-      </Card>
-    </section>
+      <div className="text-xs sm:text-sm text-gray-600 text-center">
+        단계: {currentStep + 1} / {operations.length}
+      </div>
+    </NameScriptLayout>
+
   );
 };
 

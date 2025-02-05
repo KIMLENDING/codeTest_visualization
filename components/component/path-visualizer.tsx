@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import Link from 'next/link';
-import { SquareArrowOutUpRight } from 'lucide-react';
+import NameScriptLayout from '../layout/nameScriptLayout';
 
 const PathVisualizer = () => {
   const [step, setStep] = useState(0);
@@ -45,21 +43,12 @@ const PathVisualizer = () => {
   }, []);
 
   return (
-    <Card className="w-full max-w-4xl">
-      <CardHeader>
-        <div className='flex flex-row items-center gap-2 flex-wrap'>
-          <CardTitle className="text-base sm:text-xl">
-            등굣길 경로 찾기
-          </CardTitle>
-          <div className="text-sm sm:text-base text-gray-500">
-            (단계 {step + 1}/{grid.length})
-          </div>
-          <Link href={'https://school.programmers.co.kr/learn/courses/30/lessons/42898'}>
-            <SquareArrowOutUpRight className="h-5 w-5" />
-          </Link>
+
+    <NameScriptLayout title='등굣길 경로 찾기 시각화' hrefLink='https://school.programmers.co.kr/learn/courses/30/lessons/42898'>
+      <div className="flex flex-col items-center space-y-1 mb-8">
+        <div className="text-sm sm:text-base text-gray-500">
+          (단계 {step + 1}/{grid.length})
         </div>
-      </CardHeader>
-      <CardContent>
         <div className="space-y-4">
           <div className="grid gap-1 sm:gap-2 max-w-full overflow-x-auto pb-2">
             {grid[step]?.dp.map((row, i) => (
@@ -94,9 +83,11 @@ const PathVisualizer = () => {
               다음
             </Button>
           </div>
+
         </div>
-      </CardContent>
-    </Card>
+      </div>
+    </NameScriptLayout>
+
   );
 };
 

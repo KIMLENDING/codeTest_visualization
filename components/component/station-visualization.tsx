@@ -1,8 +1,7 @@
 'use client';
 import React, { useState, useEffect } from 'react';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
-import { Wifi, Play, Pause, RotateCcw, SquareArrowOutUpRight } from 'lucide-react';
-import Link from 'next/link';
+import { Wifi, Play, Pause, RotateCcw } from 'lucide-react';
+import NameScriptLayout from '../layout/nameScriptLayout';
 
 interface StationVisualizerProps {
   n?: number;
@@ -137,15 +136,24 @@ const StationVisualizer = ({
     return null;
   };
   return (
-    <Card className="w-full max-w-4xl">
-      <CardHeader>
+    <NameScriptLayout title='기지국 설치 시각화' hrefLink='https://school.programmers.co.kr/learn/courses/30/lessons/12979'>
 
-        <CardTitle className="flex justify-between items-center">
-          <div className='flex flex-row items-center gap-2'>
-            <span>기지국 설치 시각화</span>
-            <Link href={'https://school.programmers.co.kr/learn/courses/30/lessons/12979'}>
-              <SquareArrowOutUpRight />
-            </Link>
+
+      <div className="space-y-4">
+        <div className='flex flex-row items-center justify-between'>
+          <div className="flex  space-x-4 ">
+            <div className="flex items-center space-x-2">
+              <div className="w-4 h-4 bg-blue-200"></div>
+              <span>기존 커버리지</span>
+            </div>
+            <div className="flex items-center space-x-2">
+              <div className="w-4 h-4 bg-green-200"></div>
+              <span>새로운 커버리지</span>
+            </div>
+            <div className="flex items-center space-x-2">
+              <div className="w-4 h-4 bg-gray-100"></div>
+              <span>미커버 영역</span>
+            </div>
           </div>
           <div className="flex gap-2">
             <button
@@ -161,84 +169,65 @@ const StationVisualizer = ({
               <RotateCcw className="w-5 h-5" />
             </button>
           </div>
-        </CardTitle>
-      </CardHeader>
-      <CardContent>
-        <div className="space-y-4">
-          <div className="flex space-x-4 mb-4">
-            <div className="flex items-center space-x-2">
-              <div className="w-4 h-4 bg-blue-200"></div>
-              <span>기존 커버리지</span>
-            </div>
-            <div className="flex items-center space-x-2">
-              <div className="w-4 h-4 bg-green-200"></div>
-              <span>새로운 커버리지</span>
-            </div>
-            <div className="flex items-center space-x-2">
-              <div className="w-4 h-4 bg-gray-100"></div>
-              <span>미커버 영역</span>
-            </div>
-          </div>
+        </div>
+        <div className="flex">
+          {Array.from({ length: n }, (_, i) => i + 1).map((position) => {
+            const coverage = getCoverageStatus(position);
+            const stationType = getStationType(position);
+            const isActive = isStation(position);
 
-          <div className="flex">
-            {Array.from({ length: n }, (_, i) => i + 1).map((position) => {
-              const coverage = getCoverageStatus(position);
-              const stationType = getStationType(position);
-              const isActive = isStation(position);
-
-              return (
+            return (
+              <div
+                key={position}
+                className="relative flex-1"
+                onMouseEnter={() => setHoveredCell(position)}
+                onMouseLeave={() => setHoveredCell(null)}
+              >
                 <div
-                  key={position}
-                  className="relative flex-1"
-                  onMouseEnter={() => setHoveredCell(position)}
-                  onMouseLeave={() => setHoveredCell(null)}
-                >
-                  <div
-                    className={`
+                  className={`
                       h-16 border border-gray-300 flex items-center justify-center
                       transition-colors duration-500
                       ${coverage === 'existing' ? 'bg-blue-200' : ''}
                       ${coverage === 'new' ? 'bg-green-200' : ''}
                       ${coverage === 'uncovered' ? 'bg-gray-100' : ''}
-                    `}
-                  >
-                    {isActive && (
-                      <Wifi
-                        className={`w-6 h-6 transition-all duration-500 scale-in
-                          ${stationType === 'existing' ? 'text-blue-600' : 'text-green-600'}
-                        `}
-                      />
-                    )}
-                    {hoveredCell === position && (
-                      <div className="absolute -top-8 bg-gray-800 text-white px-2 py-1 rounded text-sm">
-                        위치: {position}
-                      </div>
-                    )}
-                  </div>
-                  <div className="text-center text-sm mt-1">{position}</div>
+                      `}
+                >
+                  {isActive && (
+                    <Wifi
+                      className={`w-6 h-6 transition-all duration-500 scale-in
+                      ${stationType === 'existing' ? 'text-blue-600' : 'text-green-600'}
+                      `}
+                    />
+                  )}
+                  {hoveredCell === position && (
+                    <div className="absolute -top-8 bg-gray-800 text-white px-2 py-1 rounded text-sm">
+                      위치: {position}
+                    </div>
+                  )}
                 </div>
-              );
-            })}
-          </div>
-
-          <div className="mt-4">
-            <p className="font-medium">현재 진행 상황:</p>
-            <div className="h-2 bg-gray-200 rounded-full mt-2 mb-4">
-              <div
-                className="h-full bg-blue-500 rounded-full transition-all duration-300"
-                style={{ width: `${(currentStep / (totalSteps)) * 100}%` }}
-              ></div>
-            </div>
-            <ul className="list-disc pl-5 space-y-1">
-              <li>전체 길이: {n}</li>
-              <li>기존 기지국 위치: {stations.join(', ')}</li>
-              <li>전파 범위: {w}</li>
-              <li>설치된 기지국: {activeStations.filter(s => !stations.includes(s)).length} / {newStations.length}</li>
-            </ul>
-          </div>
+                <div className="text-center text-sm mt-1">{position}</div>
+              </div>
+            );
+          })}
         </div>
-      </CardContent>
-    </Card>
+
+        <div className="mt-4">
+          <p className="font-medium">현재 진행 상황:</p>
+          <div className="h-2 bg-gray-200 rounded-full mt-2 mb-4">
+            <div
+              className="h-full bg-blue-500 rounded-full transition-all duration-300"
+              style={{ width: `${(currentStep / (totalSteps)) * 100}%` }}
+            ></div>
+          </div>
+          <ul className="list-disc pl-5 space-y-1">
+            <li>전체 길이: {n}</li>
+            <li>기존 기지국 위치: {stations.join(', ')}</li>
+            <li>전파 범위: {w}</li>
+            <li>설치된 기지국: {activeStations.filter(s => !stations.includes(s)).length} / {newStations.length}</li>
+          </ul>
+        </div>
+      </div>
+    </NameScriptLayout>
   );
 };
 

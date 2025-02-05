@@ -1,9 +1,7 @@
 'use client';
 import React, { useEffect, useState } from 'react'
-import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
-import Link from 'next/link';
-import { SquareArrowOutUpRight } from 'lucide-react';
 import { Button } from '../ui/button';
+import NameScriptLayout from '../layout/nameScriptLayout';
 
 const Ranking = () => {
     const n = 5;
@@ -107,16 +105,8 @@ const Ranking = () => {
 
 
     return (
-        <Card className="w-full max-w-4xl mx-auto">
-            <CardHeader>
-                <div className="flex flex-row items-center gap-2">
-                    <CardTitle className="text-xl sm:text-2xl">순위 시각화</CardTitle>
-                    <Link href={'https://school.programmers.co.kr/learn/courses/30/lessons/49191'}>
-                        <SquareArrowOutUpRight className="h-5 w-5" />
-                    </Link>
-                </div>
-            </CardHeader>
-            <CardContent>
+        <NameScriptLayout title=' 순위 시각화' hrefLink='https://school.programmers.co.kr/learn/courses/30/lessons/49191'>
+            <div className="flex flex-col items-center space-y-1 ">
                 {i === 1 && j === 1 && k === 1 && dist.every(row => row.every(cell => cell === 'N')) ? (
                     <Button onClick={initialization}>시작</Button>
                 ) : (
@@ -134,8 +124,8 @@ const Ranking = () => {
                             idx !== 0 &&
                             <div key={idx}
                                 className={`m-0.5 sm:m-2 p-1 sm:p-2 rounded-lg border
-                                    w-8 sm:w-12 h-8 sm:h-12 flex items-center justify-center text-sm sm:text-base
-                                    ${item === '승' ? 'bg-green-400' :
+                                w-8 sm:w-12 h-8 sm:h-12 flex items-center justify-center text-sm sm:text-base
+                                ${item === '승' ? 'bg-green-400' :
                                         item === '패' ? 'bg-red-500' :
                                             'bg-zinc-200 border-gray-300'}
                                     ${idx === j && index === i ? 'ring-4 ring-blue-500 bg-blue-300' : ''}
@@ -148,8 +138,8 @@ const Ranking = () => {
                 <div>
                     순위를 알 수 있는 선수는 {answer}명
                 </div>
-            </CardContent>
-        </Card>
+            </div>
+        </NameScriptLayout>
     );
 };
 

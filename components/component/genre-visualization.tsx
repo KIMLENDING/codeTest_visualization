@@ -1,7 +1,6 @@
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import Link from 'next/link';
-import { SquareArrowOutUpRight } from 'lucide-react';
+import NameScriptLayout from '../layout/nameScriptLayout';
 
 const GenreVisualization = () => {
   const genres = ["classic", "pop", "classic", "classic", "pop"];
@@ -27,18 +26,15 @@ const GenreVisualization = () => {
   };
 
   return (
-    <section className="space-y-6 w-full max-w-4xl">
+
+    <NameScriptLayout title='베스트앨범 시각화' hrefLink='https://school.programmers.co.kr/learn/courses/30/lessons/42579'>
+
       <Card>
         <CardHeader>
-          <div className='flex flex-row items-center gap-2'>
-            <CardTitle className="text-xl sm:text-2xl">베스트앨범</CardTitle>
-            <Link href={'https://school.programmers.co.kr/learn/courses/30/lessons/42579'}>
-              <SquareArrowOutUpRight className="h-5 w-5" />
-            </Link>
-          </div>
+          <CardTitle className="text-xl sm:text-2xl">보기</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="flex flex-wrap gap-2 sm:gap-4">
+          <div className="flex flex-wrap gap-2 sm:gap-4 ">
             {genres.map((genre, i) => (
               <div key={i} className="border rounded p-3 sm:p-4 text-center w-[calc(50%-0.5rem)] sm:w-auto">
                 <div className="font-bold mb-2 text-sm sm:text-base">{genreKorean[genre]}</div>
@@ -95,7 +91,9 @@ const GenreVisualization = () => {
           </div>
         </CardContent>
       </Card>
-    </section>
+
+
+    </NameScriptLayout>
   );
 };
 

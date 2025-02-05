@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../ui/card';
-import Link from 'next/link';
-import { SquareArrowOutUpRight } from 'lucide-react';
 import { Button } from '../ui/button';
+import NameScriptLayout from '../layout/nameScriptLayout';
 
 const ConnectingIsland = () => {
     const n = 4;
@@ -74,82 +72,72 @@ const ConnectingIsland = () => {
     }
 
     return (
-        <Card className="w-full max-w-4xl">
-            <CardHeader>
-                <div className='flex flex-row items-center gap-2'>
-                    <CardTitle className="text-lg sm:text-xl">섬 연결하기</CardTitle>
-                    <Link href={'https://school.programmers.co.kr/learn/courses/30/lessons/42861'}>
-                        <SquareArrowOutUpRight className="h-5 w-5" />
-                    </Link>
-                </div>
-            </CardHeader>
 
-            <CardContent className='space-y-6'>
-                {/* 컨트롤 버튼 */}
-                <div className="flex gap-2">
-                    <Button
-                        variant={isPlaying ? "secondary" : "default"}
-                        className={`${isPlaying ? 'bg-green-500 hover:bg-green-600' : ''}`}
-                        onClick={() => {
-                            if (current === costs.length - 1) reset()
-                            setIsPlaying(!isPlaying)
-                        }}
-                    >
-                        {isPlaying ? '정지' : '시작'}
-                    </Button>
-                    <Button variant="outline" onClick={reset}>리셋</Button>
-                </div>
 
-                {/* 메인 컨텐츠 */}
-                <div className='grid grid-cols-1 lg:grid-cols-2 gap-6'>
-                    {/* 왼쪽: 연결 가능 다리 */}
-                    <div className='flex flex-col items-center'>
-                        <h3 className='font-semibold text-base sm:text-lg mb-4'>연결 가능 다리</h3>
-                        <div className='w-full overflow-y-auto max-h-[400px] pr-2 rounded-lg border border-gray-100 p-4'>
-                            <div className='flex flex-col gap-3'>
-                                {costs.map((item, i) => (
-                                    <div key={i} className="flex items-center justify-between bg-gray-50 p-3 rounded-lg">
-                                        <div className="flex items-center gap-2">
-                                            <div className={`w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center rounded-full text-white
+        <NameScriptLayout title='섬 연결하기' hrefLink='https://school.programmers.co.kr/learn/courses/30/lessons/42861'>
+            <div className="flex flex-col items-center space-y-1 ">
+                <Button
+                    variant={isPlaying ? "secondary" : "default"}
+                    className={`${isPlaying ? 'bg-green-500 hover:bg-green-600' : ''}`}
+                    onClick={() => {
+                        if (current === costs.length - 1) reset()
+                        setIsPlaying(!isPlaying)
+                    }}
+                >
+                    {isPlaying ? '정지' : '시작'}
+                </Button>
+                <Button variant="outline" onClick={reset}>리셋</Button>
+            </div>
+
+            {/* 메인 컨텐츠 */}
+            <div className='grid grid-cols-1 lg:grid-cols-2 gap-6'>
+                {/* 왼쪽: 연결 가능 다리 */}
+                <div className='flex flex-col items-center'>
+                    <h3 className='font-semibold text-base sm:text-lg mb-4'>연결 가능 다리</h3>
+                    <div className='w-full overflow-y-auto max-h-[400px] pr-2 rounded-lg border border-gray-100 p-4'>
+                        <div className='flex flex-col gap-3'>
+                            {costs.map((item, i) => (
+                                <div key={i} className="flex items-center justify-between bg-gray-50 p-3 rounded-lg">
+                                    <div className="flex items-center gap-2">
+                                        <div className={`w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center rounded-full text-white
                         ${i === current ? 'bg-green-500' : 'bg-zinc-400'}`}>
-                                                {item[0]}
-                                            </div>
-                                            <div className="text-gray-400">→</div>
-                                            <div className={`w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center rounded-full text-white
-                        ${i === current ? 'bg-green-500' : 'bg-zinc-400'}`}>
-                                                {item[1]}
-                                            </div>
+                                            {item[0]}
                                         </div>
-                                        <div className='font-medium'>${item[2]}</div>
+                                        <div className="text-gray-400">→</div>
+                                        <div className={`w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center rounded-full text-white
+                        ${i === current ? 'bg-green-500' : 'bg-zinc-400'}`}>
+                                            {item[1]}
+                                        </div>
                                     </div>
-                                ))}
-                            </div>
-                        </div>
-                    </div>
-
-                    {/* 오른쪽: 연결된 섬 상태 */}
-                    <div className='flex flex-col items-center'>
-                        <h3 className='font-semibold text-base sm:text-lg mb-4'>연결된 섬</h3>
-                        <div className='w-full bg-gray-50 rounded-lg p-4 flex flex-col items-center'>
-                            <div className='flex flex-wrap justify-center gap-2 mb-6'>
-                                {parent.map((item, i) => (
-                                    <div
-                                        key={i}
-                                        className={`w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center rounded-full text-white
-                      ${item === 0 ? 'bg-green-500' : 'bg-zinc-400'}`}
-                                    >
-                                        {i}
-                                    </div>
-                                ))}
-                            </div>
-                            <div className='text-lg font-semibold'>
-                                최소 비용: ${sum}
-                            </div>
+                                    <div className='font-medium'>${item[2]}</div>
+                                </div>
+                            ))}
                         </div>
                     </div>
                 </div>
-            </CardContent>
-        </Card>
+
+                {/* 오른쪽: 연결된 섬 상태 */}
+                <div className='flex flex-col items-center'>
+                    <h3 className='font-semibold text-base sm:text-lg mb-4'>연결된 섬</h3>
+                    <div className='w-full bg-gray-50 rounded-lg p-4 flex flex-col items-center'>
+                        <div className='flex flex-wrap justify-center gap-2 mb-6'>
+                            {parent.map((item, i) => (
+                                <div
+                                    key={i}
+                                    className={`w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center rounded-full text-white
+                      ${item === 0 ? 'bg-green-500' : 'bg-zinc-400'}`}
+                                >
+                                    {i}
+                                </div>
+                            ))}
+                        </div>
+                        <div className='text-lg font-semibold'>
+                            최소 비용: ${sum}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </NameScriptLayout>
     )
 }
 
